@@ -1,49 +1,36 @@
 package Bean;
 
-import java.io.Serializable;
+import java.sql.SQLException;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;	
+import javax.faces.bean.ViewScoped;
 
-@ManagedBean(name = "MBusuario")
+import dao.UsuarioDao;
+import domain.Usuario;
+
+@ManagedBean (name = "MBUsuario")
 @ViewScoped
-public class UsuarioBean implements Serializable {
+public class UsuarioBean {
 
-	private static final long serialVersionUID = 1L;
-	private String usuario;
-	private String senha;
-	private String resultado;
+	private Usuario usuario;
 
-	public String getUsuario() {
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
-	}
-
-	public void logar() {
-
-		this.resultado = "Não logado!";
-		if (usuario.equalsIgnoreCase("Jean") && (senha.equals("123456"))) {
-			this.resultado = " Logado! ";
-		}
+	public void novo() throws SQLException {
+		UsuarioDao userDao = new UsuarioDao();
+		userDao.salvar(usuario);
 	}
 
 }
